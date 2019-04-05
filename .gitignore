@@ -1,0 +1,13 @@
+#**/logs
+*.log
+*.h5
+.DS_Store
+*.pyc
+*.ipynb
+*.csv
+*.config.ini
+__pycache__/
+*.py[cod]
+*$py.class
+*.ipynb_checkpoints
+*.geojson
