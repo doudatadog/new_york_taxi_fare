@@ -3,7 +3,7 @@
 import pandas,tqdm
 
 
-chunksize                      = 1e5 #Data will be loaded in chunks
+chunksize                      = 1e6 #Data will be loaded in chunks
 i                              = 0 # iteration step
 
 for chunk in tqdm.tqdm(
@@ -11,7 +11,9 @@ for chunk in tqdm.tqdm(
         './data/train.csv'  ,
         chunksize              = chunksize,
         parse_dates            = ['pickup_datetime'] #Automatically parse input to Datetime64[ns] format
-                        )     ):
+        ,engine                = 'c',
+        low_memory             = False,
+        memory_map             = True)    ):
     i +=1 #update step
     chunk.to_hdf(
         './data/train/{i}.h5'.format(
