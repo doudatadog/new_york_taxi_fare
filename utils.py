@@ -20,17 +20,24 @@ H5        = lambda  fp : [
 lon_bnd   = [-75.,-71.]
 lat_bnd   = [39.,42]
 boundaryQ = '(@lon_bnd[0]<pickup_longitude<@lon_bnd[1]) and (@lat_bnd[0]<pickup_latitude<@lat_bnd[1])'
-       #print(n)
-       idx                                      = pandas.np.argpartition(D, n) #get the n smallest elements
-        idx                                      = idx[:,:n]
-        self.target['df']                        = [ self.source.loc[id_] for (id_,l) in zip(idx,range(len(idx)))]
 
-
-def Link2DFS_by_nearestGeo(DF1,DF2,ColMapper):
+def Link2DFS_by_nearestGeo(
+	DF1,
+	DF2,
+	ColMapper,
+	prefix):
 	ncolsests 								 = 1
 	D                                        = distance.cdist(XA=DF1[ColMapper[0]].values, XB=DF2[ColMapper[1]].values, metric='euclidean')
 	idx                                      = pandas.np.argpartition(D, ncolsests)
+	closestD								 = pandas.np.argmin(D)
 	idx                                      = idx[:,:ncolsests]
-	picked 									 = DF2.loc[idx.flatten()].reset_index(drop=True)
+	picked 									 = DF2.loc[idx.flatten()
+	].reset_index(
+	drop=True
+	).assgin(Dist=closestD
+	).rename(
+	columns=lambda DF : {
+	x:'{0}_{1}'.format(prefix,x) 
+	for x in DF.columns})
 	result									 = pandas.concat([DF1,picked])
 	return 									   result
