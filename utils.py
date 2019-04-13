@@ -29,15 +29,13 @@ def Link2DFS_by_nearestGeo(
 	ncolsests 								 = 1
 	D                                        = distance.cdist(XA=DF1[ColMapper[0]].values, XB=DF2[ColMapper[1]].values, metric='euclidean')
 	idx                                      = pandas.np.argpartition(D, ncolsests)
-	closestD								 = pandas.np.argmin(D)
+	closestD								 = pandas.np.min(D,axis=1)
 	idx                                      = idx[:,:ncolsests]
 	picked 									 = DF2.loc[idx.flatten()
 	].reset_index(
 	drop=True
-	).assgin(Dist=closestD
+	).assign(Dist=closestD.flatten()
 	).rename(
-	columns=lambda DF : {
-	x:'{0}_{1}'.format(prefix,x) 
-	for x in DF.columns})
-	result									 = pandas.concat([DF1,picked])
+	columns									 = lambda x : '{0}_{1}'.format(prefix,x))
+	result									 = pandas.concat([DF1,picked],axis=1)
 	return 									   result
