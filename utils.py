@@ -1,4 +1,4 @@
-import pandas,os,datetime
+import pandas,os,datetime,geopandas
 from scipy.spatial import distance
 
 
