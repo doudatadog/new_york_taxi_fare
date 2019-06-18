@@ -47,6 +47,13 @@ popshapes['nb_roads']                       = ids.apply(lambda x : roads.loc[x].
 del roads,ids,shapes,pop_data
 
 class GetFeatures:
+  '''
+  This class will compute
+  1. population in driven towns
+  2. total possible roads in towns
+  3. pickup time information
+
+  '''
     def __init__(
         self,
         filepath,
